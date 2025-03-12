@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>hi {{roll}}</title>
+</head>
+<body>
+    <div>
+        <h1>hi {{ roll }}</h1>
+        {% if questions %}
+        <form action="/start_ia/{{ test_id }}/{{ roll }}" method="POST">
+            <input type="hidden" name="test_id" value="{{ test_id }}">
+            <input type="hidden" name="roll" value="{{ roll }}">
+            {% for question in questions %}
+                <p>{{ loop.index }}: {{ question.question }}</p>
+                <input type="radio" name="answer_{{ question.qid }}" value="A"> {{ question.option_A }}<br>
+                <input type="radio" name="answer_{{ question.qid }}" value="B"> {{ question.option_B }}<br>
+                <input type="radio" name="answer_{{ question.qid }}" value="C"> {{ question.option_C }}<br>
+                <input type="radio" name="answer_{{ question.qid }}" value="D"> {{ question.option_D }}<br>
+                <br>
+            {% endfor %}
+            <button type="submit" name="submit">Submit Test</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>

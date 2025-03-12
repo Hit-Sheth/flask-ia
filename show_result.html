@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>RESULTS</title>
+</head>
+<body>
+    <div>
+        <h2>Test Details</h2>
+        <h3>Test Name: {{ test_name }}</h3>
+        <h3>Test id: {{ test_id }}</h3>
+        <table>
+            <tr>
+                <th>Roll No.</th>
+                <th>Name</th>
+                <th>Markes outof {{ outof }}</th>
+            </tr>
+            {% if result %}
+                {% for row in result %}
+                    <tr>
+                        <td>{{ row.roll }}</td>
+                        <td>{{ row.name }}</td>
+                        <td>{{ row.markes }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div> 
+</body>
+</html>

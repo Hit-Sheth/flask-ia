@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create IA Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Create IA Test</h2>
+
+    <!-- FORM TO SELECT SUBJECT & DIFFICULTY -->
+    <form action="/" method="POST">
+        <label>Subject:</label>
+        <input type="text" name="Subject" value="{{ subject }}" required><br>
+
+        <label>Test Name:</label>
+        <input type="text" name="test_name" value="{{ test_name }}" required><br>
+
+        <label>Difficulty:</label>
+        <input type="radio" name="difficulty" value="Easy" {% if difficulty == 'Easy' %}checked{% endif %} onchange="this.form.submit();"> Easy
+        <input type="radio" name="difficulty" value="Medium" {% if difficulty == 'Medium' %}checked{% endif %} onchange="this.form.submit();"> Medium
+        <input type="radio" name="difficulty" value="Hard" {% if difficulty == 'Hard' %}checked{% endif %} onchange="this.form.submit();"> Hard
+
+        <input type="hidden" name="fetch_questions">
+    </form>
+
+    
+    <!-- FORM TO SELECT QUESTIONS -->
+    {% if questions %}
+    <form action="/" method="POST">
+        <h3>Select Questions:</h3>
+        <button type="submit" name="save_questions">Add Questions</button><br>
+        {% for question in questions %}
+            <input type="checkbox" name="selected_questions" value="{{ question.qid }}">
+            {{ question.question }}<br>
+        {% endfor %}
+
+        <input type="hidden" name="Subject" value="{{ subject }}">
+        <input type="hidden" name="difficulty" value="{{ difficulty }}">
+        <input type="hidden" name="test_name" value="{{ test_name }}">
+    </form>
+    {% endif %}
+
+    <!-- FORM TO GENERATE LINK -->
+    {% if test_id %}
+    <form action="/" method="POST">
+        <input type="hidden" name="test_id" value="{{ test_id }}">
+        <button type="submit" name="link">Generate Test Link</button>
+    </form>
+    {% endif %}
+</body>
+</html>
